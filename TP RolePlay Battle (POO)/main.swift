@@ -11,20 +11,24 @@ func input() -> Int {
     let strData = readLine();
     return Int(strData!)!
 }
-func newScreen(n: Int) {
-    let n: Int = 0
+func newScreen() {
     var i: Int = 0
     repeat {
     print("")
     i += 1
-    }while i < n
+    }while i < 100
+}
+func enter() {
+    var enter: String = ""
+    enter = readLine()!
 }
 
 //--------------------------CLASS-------------------------------
 public class Personnage {
     var name: String
     var life = 10
-    var level: Int = 1
+    var level: Int = 0
+    var classe: String = ""
     var choiceInterface: Int
     var sacADos: [String]
     var donjon1 : Bool = false
@@ -47,14 +51,61 @@ public class Personnage {
 //-----------------------AVENTURE------------------------------------
     func aventure() {
         if perso.level == 2 {
-            newScreen(n: 100)
+            newScreen()
+            print("Tu es enfin prêt aventurier")
+            enter()
+            print("Je vais te téléporter au début de ton aventure mais avant laisse moi te raconter une histoire...")
+            enter()
+            print("... Le monde regorge de créature fantastique que nous appelons Pokémon... ah non c'est pas ça")
+            enter()
+            print("Le temps est venu pour toi de choisir ta classe !! Je te parle pas d'une option à l'école nan nan ...")
+            enter()
+            print("Mais bien d'une classe de héros ! Voici tes choix :")
+            print("1. Guerrier")
+            print("2. Magicien")
+            print("3. Developper")
+            var classeHero: Int = 0
+            classeHero = input()
+            if classeHero == 1 {
+                print("Bien ! Tu sera un guerrier.")
+                perso.classe = "Guerrier"
+                print("à partir de maintenant tu te battera comme tel")
+                enter()
+            } else if classeHero == 2 {
+                print("Bien ! Tu sera un Magicien.")
+                perso.classe = "Magicien"
+                print("à partir de maintenant tu te battera comme tel")
+                enter()
+            } else if classeHero == 3 {
+                print("Bien ! Tu sera un Developper.")
+                perso.classe = "Developper"
+                print("à partir de maintenant tu te battera comme tel")
+                enter()
+            }
+            
+            print("Prêt à être téléporté ?")
+            var choicetp: Int = 0
+            print("1. Oui")
+            print("2. Non")
+            choicetp = input()
+            if choicetp == 1 {
+                print("C'est parti !!!!!!!!")
+                aventure2()
+            } else {
+                print("Bien... reviens me voir plus tard alors")
+                interface()
+            }
+            
         } else {
             print("Tu n'es pas assez haut niveau pour pouvoir partir à l'aventure")
             interface()
         }
     }
     
-    
+    func aventure2() {
+        print("Coming Soon")
+        interface()
+    }
     
     
     
@@ -63,7 +114,9 @@ public class Personnage {
         if choice == 1 && perso.donjon1 == false {
             var choiceObjet: Int = 0
             print("Bienvenue dans le Donjon des Squelettes !")
+            enter()
             print("Ici il y a beaucoup de Squelettes... tiens d'ailleurs en voilà un !")
+            enter()
             print("------------")
             print("▒▒▒░░░░░░░░░░▄▐░░░░")
             print("▒░░░░░░▄▄▄░░▄██▄░░░")
@@ -86,6 +139,7 @@ public class Personnage {
             perso.level += 1
             perso.donjon1 = true
             print("Bravo !! Tu l'as tué !! Par contre tu as pris pas mal de dégat... tiens une potion.")
+            enter()
             print("Voilà, range la dans ton sac tu l'utilisera tout à l'heure. Ou maintenant comme tu veux")
             print("1. Maintenant")
             print("2. Plus tard")
@@ -100,7 +154,9 @@ public class Personnage {
         } else if choice == 2 && perso.donjon2 == false {
            var choiceObjet: Int = 0
             print("Bienvenue dans le Donjon des Monstres Méchants !")
+            enter()
             print("Cette fois, vous combattrez des ... Tortues !")
+            enter()
             print("------------")
             print("                   ___")
             print("         .,-;-;-,./'_/ ")
@@ -112,6 +168,7 @@ public class Personnage {
             perso.level += 1
             perso.donjon2 = true
             print("Bravo !! Tu l'as tué !! Par contre tu as pris pas mal de dégat... tiens une potion.")
+            enter()
             print("Voilà, range la dans ton sac tu l'utilisera tout à l'heure. Ou maintenant comme tu veux")
             print("1. Maintenant")
             print("2. Plus tard")
@@ -168,7 +225,7 @@ public class Personnage {
         
         switch choiceInterface {
         case 1:
-            newScreen(n: 10)
+            newScreen()
             print("---Sac à Dos---")
             print(perso.sacADos)
             print("Que voulez vous faire ?")
@@ -203,7 +260,7 @@ public class Personnage {
                 interface()
             }
         case 2:
-            newScreen(n: 10)
+            newScreen()
             print("---Donjons---")
             print("1) Donjon des Squelettes")
             print("2) Donjon des Monstres Méchants")
@@ -218,10 +275,14 @@ public class Personnage {
         case 3:
             aventure()
         case 4:
-            newScreen(n: 10)
+            newScreen()
             print("---Caractéristiques---")
+            if perso.classe == "Guerrier" || perso.classe == "Magicien" || perso.classe == "Developper" {
+                print("Classe de Héros : \(perso.classe)")
+            }
             print("Point de vie : \(perso.life)")
             print("Niveau : \(perso.level)")
+            
             interface()
         case 5:
             print("T'as pas d'amis... et tu le sais...")
@@ -229,7 +290,7 @@ public class Personnage {
             print("")
             interface()
         case 6:
-            newScreen(n: 10)
+            newScreen()
             print("Merci d'avoir joué")
             exit(0)
         default:
@@ -237,9 +298,10 @@ public class Personnage {
         }
     }
 }
-
+//----------------------CODE_EXE------------------------------------------
 var perso = Personnage()
 var choiceTuto1: Int
+newScreen()
 print("Grand Maitre: Bonjour aventurier ! Commencez par me donner votre nom :")
 
 perso.name = readLine()!
@@ -255,6 +317,9 @@ if choiceTuto1 == 1 {
 }
 
 print("Grand Maitre: Je vais t'apprendre à te battre aujourd'hui !")
+enter()
 print("Grand Maitre: Pour commencer, voici ton interface héros !")
 perso.interface()
+
+
 
